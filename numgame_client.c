@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
     int sock;
     struct sockaddr_in serv_addr;
     char send_buf[BUF_SIZE], recv_buf[BUF_SIZE];
-    // 필요한 경우 추가 변수를 선언해도 됩니다.
 
     // -------------------------------
     // 1. 명령행 인자 확인
@@ -30,7 +29,7 @@ int main(int argc, char *argv[]) {
     // -------------------------------
     // 2️. 소켓 생성
     // -------------------------------
-    // TODO: socket() 함수를 사용하여 소켓을 생성하시오.
+    // socket() 함수를 사용하여 소켓을 생성
 
     sock = socket(PF_INET, SOCK_STREAM, 0);
     if (sock == -1) {
@@ -42,7 +41,6 @@ int main(int argc, char *argv[]) {
     // 3️. 서버 주소 설정
     // -------------------------------
 
-    // TODO: serv_addr 구조체의 각 필드(AF_INET, IP, PORT 등)를 올바르게 채우시오.
     memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
 
@@ -59,7 +57,7 @@ int main(int argc, char *argv[]) {
     // -------------------------------
     // 4️. 서버에 연결
     // -------------------------------
-    // TODO: connect() 함수를 사용하여 서버에 연결하시오.
+    // connect() 함수를 사용하여 서버에 연결
     // printf("Connected to server %s:%d\n", server_ip, port);
 
     if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) == -1) {
@@ -76,7 +74,7 @@ int main(int argc, char *argv[]) {
     // -------------------------------
     // 5️. 사용자 이름 전송
     // -------------------------------
-    // TODO: send() 함수를 사용하여 username을 서버로 전송하시오.
+    // send() 함수를 사용하여 username을 서버로 전송
 
     snprintf(send_buf, sizeof(send_buf), "%s\n", username);
 
@@ -91,8 +89,8 @@ int main(int argc, char *argv[]) {
     // -------------------------------
     // 6️. 범위 수신 (예: "RANGE 1 100")
     // -------------------------------
-    // TODO: recv() 함수를 사용하여 서버 메시지를 수신하시오.
-    // TODO: sscanf()를 사용하여 범위 정보를 파싱하시오.
+    // recv() 함수를 사용하여 서버 메시지를 수신
+    // sscanf()를 사용하여 범위 정보를 파싱
 
     int len;
     len = recv(sock, recv_buf, sizeof(recv_buf) -1, 0);
@@ -119,7 +117,6 @@ int main(int argc, char *argv[]) {
     // -------------------------------
     // 7️. 추측 반복문
     // -------------------------------
-    // TODO:
     //   - 서버에 숫자 추측값을 전송
     //   - 서버로부터 피드백("Higher", "Lower", "Correct") 수신
     //   - 피드백에 따라 다음 추측값 조정
@@ -172,7 +169,7 @@ int main(int argc, char *argv[]) {
     // -------------------------------
     // 8️. 연결 종료
     // -------------------------------
-    // TODO: close() 함수를 사용하여 소켓을 닫으시오.
+    // close() 함수를 사용하여 소켓 닫기
 
     close(sock);
     return 0;
