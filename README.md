@@ -4,7 +4,9 @@
 
 주어진 Python 서버(`numgame_server.py`)와 통신하여 서버의 정답 숫자를 **자동으로 추측**하는 클라이언트(`numgame_client.c`)를 구현합니다.
 
-클라이언트는 사용자의 입력 없이 서버 피드백 **Higher / Lower / Correct**를 기반으로 다음 추측값을 계산하며, **이진 탐색(Binary Search)** 방식으로 **약 log₂(N)** 번의 시도 내에 정답을 찾는 것을 목표로 합니다.
+클라이언트는 사용자의 입력 없이 서버 피드백 **Higher / Lower / Correct**를 기반으로 다음 추측값을 계산하며, 
+
+**이진 탐색(Binary Search)** 방식으로 **약 log₂(N)** 번의 시도 내에 정답을 찾는 것을 목표로 합니다.
 
 ---
 
