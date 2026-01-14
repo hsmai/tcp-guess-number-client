@@ -75,7 +75,8 @@
      - guess > target → `Lower!\n`
      - guess == target → `Correct! The answer is ... attempts ...\n`
        그리고 서버 콘솔에 결과 로그 출력:
-         RESULT:CORRECT USER=<username> ATTEMPTS=<attempts>
+       
+         RESULT:CORRECT USER=&lt;username&gt; ATTEMPTS=&lt;attempts&gt;
 
 - 서버는 `while True:`로 계속 살아있으며, 여러 클라이언트를 순차적으로 처리합니다.
 
