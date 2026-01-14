@@ -24,25 +24,38 @@
 
 ## Protocol (Server ↔ Client)
 
-이 프로젝트는 “텍스트 메시지 + 개행(\n)” 기반의 단순 라인 프로토콜을 사용합니다.
+이 프로젝트는 **“텍스트 메시지 + 개행(\\n)”** 기반의 단순 **라인 프로토콜(line-based protocol)** 을 사용합니다.
 
-1) 연결 직후: username 전송
+### 1) 연결 직후: username 전송
+
     Client → Server: <username>\n
 
-2) 서버가 범위 전송
+### 2) 서버가 범위 전송
+
     Server → Client: RANGE <min> <max>\n
 
-3) 게임 루프: 추측값 전송 → 피드백 수신
+### 3) 게임 루프: 추측값 전송 → 피드백 수신
+
     Client → Server: <guess>\n
-    Server → Client: Higher!\n   (guess < target)
-                 또는 Lower!\n    (guess > target)
-                 또는 Correct! ...\n (guess == target)
 
-4) 정답 시 종료
-- 서버는 `Correct! ...`를 보내고, 서버 콘솔에 아래 형식 로그가 출력되어야 정답 처리됩니다.
-    RESULT:CORRECT USER=<username> ATTEMPTS=<attempts>
+    Server → Client: Higher!\n        (guess < target)
+                   또는 Lower!\n       (guess > target)
+                   또는 Correct! ...\n (guess == target)
 
-- 클라이언트는 `Correct!` 수신 후 정상 종료해야 합니다.
+- 클라이언트는 서버 응답에 따라 탐색 범위를 갱신하며 다음 추측값(guess)을 계산합니다.
+  - Higher!  → 더 큰 수를 추측해야 함  → low = guess + 1
+  - Lower!   → 더 작은 수를 추측해야 함 → high = guess - 1
+  - Correct! → 정답 → 종료
+
+### 4) 정답 시 종료
+
+- 서버는 Correct! 메시지를 전송한 뒤, **서버 콘솔에 아래 형식 로그가 출력되어야 정답 처리**됩니다.
+
+    RESULT:CORRECT USER=&lt;username&gt; ATTEMPTS=&lt;attempts&gt;
+
+- 클라이언트는 **Correct 메시지를 수신한 후 정상 종료**해야 합니다.
+- 연결은 “한 게임(한 정답)” 처리 후 종료되며, 서버는 계속 실행되어 다음 연결을 처리합니다.
+
 
 ---
 
